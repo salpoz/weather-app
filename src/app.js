@@ -32,8 +32,7 @@ app.get("/about", (req, res) => {
   res.render("about", {
     title: "About",
     name: "Salaam",
-    address: "Manzil",
-    boy: "Kail"
+    address: "Manzil"
   });
 });
 
@@ -62,8 +61,9 @@ app.get("/weather", (req, res) => {
           });
         }
         res.send({
-          country: req.query.address,
-          temperature: weatherdata
+          country: weatherdata.country,
+          temperature: weatherdata.temperature,
+          weather: weatherdata.weather
         });
       });
     } else {

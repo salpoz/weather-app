@@ -13,7 +13,12 @@ const forecast = (coordinates, callback) => {
     } else if (response.body.current.length === 0) {
       callback("Bad Coordinates", undefined);
     } else {
-      callback(undefined, response.body.current.temperature);
+      const data = {
+        temperature: response.body.current.temperature,
+        country: response.body.location.country,
+        weather: response.body.current.weather_descriptions
+      };
+      callback(undefined, data);
     }
   });
 };

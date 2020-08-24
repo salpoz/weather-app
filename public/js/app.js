@@ -4,6 +4,7 @@ const weatherForm = document.querySelector("form");
 const search = document.querySelector("input");
 const messageOne = document.querySelector("#message-1");
 const messageTwo = document.querySelector("#message-2");
+const messageThree = document.querySelector("#message-3");
 
 weatherForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -11,13 +12,18 @@ weatherForm.addEventListener("submit", (event) => {
   const location = search.value;
   fetch("/weather?address=" + location).then((response) => {
     response.json().then((data) => {
-      console.log(data);
-      if (data.error) {
-        messageOne.textContent = data.error;
+      if (data.country) {
+        messageOne.textContent = "Country: " + data.country;
+        messageTwo.textContent = "Temperature: " + data.temperature;
+        messageThree.textContent = "Weather: " + data.weather;
+      } else if (data.Error) {
+        messageOne.textContent = data.Error;
         messageTwo.textContent = "";
+        messageThree.textContent = "";
       } else {
-        messageOne.textContent = "Temperature: " + data.temperature;
-        messageTwo.textContent = "Country: " + data.country;
+        messageOne.textContent = "Enter a name of a country";
+        messageTwo.textContent = "";
+        messageThree.textContent = "";
       }
     });
   });
